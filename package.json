@@ -1,0 +1,25 @@
+{
+  "name": "binary-tests",
+  "description": "",
+  "version": "1.0.0",
+  "homepage": "https://github.com/dominictarr/binary-tests",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/dominictarr/binary-tests.git"
+  },
+  "dependencies": {
+    "flumecodec": "0.0.1",
+    "flumelog-offset": "^3.3.2",
+    "minimist": "^1.2.0",
+    "mkdirp": "^0.5.1",
+    "pull-stream": "^3.6.9",
+    "push-stream-to-pull-stream": "^1.0.3",
+    "rimraf": "^2.6.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "set -e; for t in test/*.js; do node $t; done"
+  },
+  "author": "Dominic Tarr <dominic.tarr@gmail.com> (http://dominictarr.com)",
+  "license": "MIT"
+}
