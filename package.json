@@ -8,10 +8,15 @@
     "url": "git://github.com/dominictarr/binary-tests.git"
   },
   "dependencies": {
+    "bipf": "^1.2.0",
+    "compare-at": "^1.1.2",
     "flumecodec": "0.0.1",
+    "flumelog-aligned-offset": "^1.0.0",
     "flumelog-offset": "^3.3.2",
+    "flumeview-query": "^7.1.1",
     "minimist": "^1.2.0",
     "mkdirp": "^0.5.1",
+    "normalized-index": "^1.0.0",
     "pull-stream": "^3.6.9",
     "push-stream-to-pull-stream": "^1.0.3",
     "rimraf": "^2.6.2"
