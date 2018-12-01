@@ -8,6 +8,7 @@ var fs = require('fs')
 var rmrf = require('rimraf')
 var path = require('path')
 var minimist = require('minimist')
+var Hashtable = require('flumeview-hashtable')
 
 module.exports = function (opts, cb) {
   var filename = opts.aligned || '/tmp/test-raf/log.aligned'
@@ -69,27 +70,35 @@ module.exports = function (opts, cb) {
   var indexes = {}
 
   var start = Date.now(), started = 0, finished = 0
-  function Index (name, paths) {
-    var ni = NormalizedIndex(1, {
-      paths: paths, has: createHas(paths), compare: bipf.createCompareAt(paths)
-    })(raf, 'indexes/' + name)
+  function Index (v) {
+    var name = v.key, paths = v.value, ni
+    //console.log('index', name)
+    if(name == 'key') {
+      var seekKey = bipf.createSeekPath(['key'])
+      ni = Hashtable(1, function hash (key) {
+        return key
+      }, function getKey (data) {
+//        console.log("KEY", data.toString('ascii', 10, 20))
+        var c = seekKey(data, 0)
+        return Buffer.from(data.toString('ascii', c+5, c+5+20), 'base64').readUInt32LE(0)
+        //TODO: store cypherlinks as raw binary now base64
+//        console.log(c, data.slice(c+3, c+3+8))
+        return data.readUInt32LE(c+3) //slice(c+3, c+3+8) //slice out the binary key...
+      }, 1024*128)(raf, 'indexes/key')
+    } else {
 
+      ni = NormalizedIndex(1, {
+        paths: paths, has: createHas(paths), compare: bipf.createCompareAt(paths)
+      })(raf, 'indexes/' + name)
+
+    }
     indexes[name] = {index: ni, name: name, paths: paths, since: ni.since}
 
     connect(name, ni)
   }
 
   //the same indexes as ssb-query...
-  Index('key', [['key']])
-  Index('log', [['timestamp']])
-  Index('cts', [['value', 'timestamp']])
-  Index('clk', [['value', 'author'], ['value', 'sequence']])
-  Index('tyt', [['value', 'content', 'type'], ['timestamp']])
-  Index('tya', [['value', 'content', 'type'], ['value', 'timestamp']])
-  Index('rtt', [['value', 'content', 'root'], ['timestamp']])
-  Index('cta', [['value', 'content', 'channel'], ['value', 'timestamp']])
-  Index('aty', [['value', 'author'], ['value', 'content', 'type'], ['timestamp']])
-  Index('att', [['value', 'author'], ['value', 'content', 'type'], ['value', 'timestamp']])
+  require('./indexes.json').forEach(Index)
 
   if(opts.logging === false) return
   console.log(['seconds'].concat(Object.keys(indexes)).join(', '))
@@ -116,13 +125,4 @@ module.exports = function (opts, cb) {
 
 if(!module.partent)
   module.exports(minimist(process.argv.slice(2)))
-
-
-
-
-
-
-
-
-
 
