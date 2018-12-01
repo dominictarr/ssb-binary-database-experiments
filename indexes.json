@@ -1,0 +1,13 @@
+[
+  { "key": "key", "value": [["key"]]},
+  { "key": "log", "value": [["timestamp"]]},
+  { "key": "cts", "value": [["value", "timestamp"]]},
+  { "key": "clk", "value": [["value", "author"], ["value", "sequence"]]},
+  { "key": "tyt", "value": [["value", "content", "type"], ["timestamp"]]},
+  { "key": "tya", "value": [["value", "content", "type"], ["value", "timestamp"]]},
+  { "key": "rtt", "value": [["value", "content", "root"], ["timestamp"]]},
+  { "key": "cta", "value": [["value", "content", "channel"], ["value", "timestamp"]]},
+  { "key": "aty", "value": [["value", "author"], ["value", "content", "type"], ["timestamp"]]},
+  { "key": "att", "value": [["value", "author"], ["value", "content", "type"], ["value", "timestamp"]]}
+]
+
