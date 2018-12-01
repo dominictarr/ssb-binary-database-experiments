@@ -99,8 +99,7 @@ module.exports = function (opts, cb) {
     var ts = Date.now()
     var line = [(ts - start)/1000]
     for(var k in indexes) {
-      line.push(indexes[k].since.value - _since[k])
-      _since[k] = indexes[k].since.value
+      line.push(indexes[k].since.value)
     }
     console.log(line.join(', '))
 
@@ -117,6 +116,7 @@ module.exports = function (opts, cb) {
 
 if(!module.partent)
   module.exports(minimist(process.argv.slice(2)))
+
 
 
 
