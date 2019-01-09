@@ -123,6 +123,6 @@ module.exports = function (opts, cb) {
 
 }
 
-if(!module.partent)
+if(!module.parent)
   module.exports(minimist(process.argv.slice(2)))
 
