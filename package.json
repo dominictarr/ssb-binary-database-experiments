@@ -14,6 +14,7 @@
     "flumelog-aligned-offset": "^1.0.0",
     "flumelog-offset": "^3.3.2",
     "flumeview-hashtable": "^1.0.4",
+    "flumeview-query": "^7.1.1",
     "minimist": "^1.2.0",
     "mkdirp": "^0.5.1",
     "normalized-index": "^1.0.0",
