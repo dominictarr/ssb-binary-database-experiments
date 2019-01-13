@@ -12,7 +12,7 @@ var minimist = require('minimist')
 module.exports = function (opts, cb) {
   var source = opts.offset || path.join(process.env.HOME, '.ssb/flume/log.offset')
   var dest = opts.aligned || '/tmp/test-raf/log.aligned'
-  try { fs.stat(source) } catch(err) {
+  try { fs.statSync(source) } catch(err) {
     console.error('source log.offset file does not exist')
     throw err
   }
